@@ -44,7 +44,7 @@ You can also initialize a new project following the steps mentioned in this page
 Execute the command below in the terminal to install the Zoho CRM Streaming Agent CodeLib solution:
 
 ```bash
-catalyst codelib:install https://github.com/catalystbyzoho/codelib-zoho-crm-tunnelling-agent
+catalyst codelib:install https://github.com/catalystbyzoho/codelib-zoho-crm-streaming-agent
 ```
 
 Upon installation, the pre-configured Catalyst resources of the CodeLib solution will be automatically deployed to the Catalyst console.
