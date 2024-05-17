@@ -1,0 +1,10 @@
+{
+	"name": "message_cleanup",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "solutions@zohocatalyst.com",
+	"dependencies": {
+		"moment": "2.30.1",
+		"zcatalyst-sdk-node": "2.5.1"
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"deployment": {
+		"name": "message_service",
+		"stack": "node18",
+		"type": "advancedio",
+		"env_variables": {
+			"ZOHO_CATALYST_ZCQL_PARSER": "V2",
+			"CODELIB_SECRET_KEY": "CODELIB_FAKE_KEY"
+		}
+	},
+	"execution": {
+		"main": "index.js"
+	}
+}

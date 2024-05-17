@@ -1,0 +1,13 @@
+{
+	"deployment": {
+		"name": "zoho_crm_event_listener",
+		"stack": "node18",
+		"type": "event",
+		"env_variables": {
+			"ZOHO_CATALYST_ZCQL_PARSER":"V2"
+		}
+	},
+	"execution": {
+		"main": "index.js"
+	}
+}
