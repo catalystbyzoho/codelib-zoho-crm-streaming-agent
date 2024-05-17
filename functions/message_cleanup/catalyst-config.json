@@ -1,0 +1,13 @@
+{
+	"deployment": {
+		"name": "message_cleanup",
+		"stack": "node18",
+		"type": "cron",
+		"env_variables": {
+			"ZOHO_CATALYST_ZCQL_PARSER":"V2"
+		}
+	},
+	"execution": {
+		"main": "index.js"
+	}
+}

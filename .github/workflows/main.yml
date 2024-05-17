@@ -1,0 +1,52 @@
+name: Zoho CRM Streaming Agent Release
+
+on:
+  push:
+    tags:
+      - "v*" # P
+jobs:
+  build:
+    environment: Production
+    name: Creating Zoho CRM Streaming Agent Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cloning repository
+        uses: actions/checkout@v2
+      - name: Installing node-18
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'
+      - name: Installing Catalyst CLI
+        run: npm i -g zcatalyst-cli@1.17.3
+      - name: Downloading dependencies for message_cleanup
+        working-directory: ./functions/message_cleanup
+        run: npm install --omit=dev
+      - name: Downloading dependencies for message_service
+        working-directory: ./functions/message_service
+        run: npm install --omit=dev
+      - name: Downloading dependencies for zoho_crm_event_listener
+        working-directory: ./functions/zoho_crm_event_listener
+        run: npm install --omit=dev  
+      - name: Deploying to Catalyst
+        run: catalyst deploy --project ${{ secrets.CATALYST_PROJECT_NAME }} --org ${{ secrets.CATALYST_ORG }} --token ${{ secrets.CATALYST_TOKEN }}
+      - name: Creating release directory
+        run: mkdir -p release/functions
+      - name: Creating a zip for message_cleanup
+        working-directory: ./functions/message_cleanup
+        run: zip -r ../../release/functions/message_cleanup.zip .
+      - name: Creating a zip for message_service
+        working-directory: ./functions/message_service
+        run: zip -r ../../release/functions/message_service.zip .
+      - name: Creating a zip for zoho_crm_event_listener
+        working-directory: ./functions/zoho_crm_event_listener
+        run: zip -r ../../release/functions/zoho_crm_event_listener.zip .
+      - name: Copying project-template-1.0.0.json
+        run: cp project-template-1.0.0.json release/project-template-1.0.0.json
+      - name: Generating release
+        run: cd release && zip -r release.zip .
+      - name: Generating artifacts
+        uses: ncipollo/release-action@v1
+        with:
+          draft: true
+          tag: ${{ env.RELEASE_VERSION }}
+          artifacts: "./release/release.zip"

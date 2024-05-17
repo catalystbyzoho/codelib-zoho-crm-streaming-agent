@@ -1,0 +1,11 @@
+{
+  "functions": {
+    "targets": [
+      "zoho_crm_event_listener",
+      "message_cleanup",
+      "message_service"
+    ],
+    "ignore": [],
+    "source": "functions"
+  }
+}

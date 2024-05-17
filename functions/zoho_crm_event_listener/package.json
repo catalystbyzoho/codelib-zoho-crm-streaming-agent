@@ -1,0 +1,10 @@
+{
+	"name": "zoho_crm_event_listener",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "solutions@zohocatalyst.com",
+	"dependencies": {
+		"axios": "1.6.0",
+		"zcatalyst-sdk-node": "2.5.1"
+	}
+}

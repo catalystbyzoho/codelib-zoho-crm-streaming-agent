@@ -1,0 +1,188 @@
+{
+	"name": "project-template",
+	"version": "1.0.0",
+	"parameters": {},
+	"components": {
+		"Functions": [
+			{
+				"type": "function",
+				"name": "message_cleanup",
+				"properties": {
+					"stack": "node18",
+					"code": {
+						"path": "functions/message_cleanup.zip"
+					},
+					"configuration": {
+						"environment": {
+							"variables": {
+								"ZOHO_CATALYST_ZCQL_PARSER": "V2"
+							}
+						},
+						"memory": 256
+					},
+					"type": "cron",
+					"name": "message_cleanup"
+				},
+				"dependsOn": []
+			},
+			{
+				"type": "function",
+				"name": "message_service",
+				"properties": {
+					"stack": "node18",
+					"code": {
+						"path": "functions/message_service.zip"
+					},
+					"configuration": {
+						"environment": {
+							"variables": {
+								"CODELIB_SECRET_KEY": "CODELIB_FAKE_KEY",
+								"ZOHO_CATALYST_ZCQL_PARSER": "V2"
+							}
+						},
+						"memory": 256
+					},
+					"type": "applogic",
+					"name": "message_service"
+				},
+				"dependsOn": []
+			},
+			{
+				"type": "function",
+				"name": "zoho_crm_event_listener",
+				"properties": {
+					"stack": "node18",
+					"code": {
+						"path": "functions/zoho_crm_event_listener.zip"
+					},
+					"configuration": {
+						"environment": {
+							"variables": {
+								"ZOHO_CATALYST_ZCQL_PARSER": "V2"
+							}
+						},
+						"memory": 256
+					},
+					"type": "event",
+					"name": "zoho_crm_event_listener"
+				},
+				"dependsOn": []
+			}
+		],
+		"Cron": [
+			{
+				"type": "cron",
+				"name": "Message_Cleanup",
+				"properties": {
+					"cron_url_details": {
+						"headers": {},
+						"params": {},
+						"url": ""
+					},
+					"cron_function_identifier": "message_cleanup",
+					"end_time": -1,
+					"description": "",
+					"cron_name": "Message_Cleanup",
+					"job_detail": {
+						"hour": 0,
+						"timezone": "Asia/Kolkata",
+						"minute": 0,
+						"second": 0,
+						"repetition_type": "Daily"
+					},
+					"cron_type": "Calendar",
+					"status": true
+				},
+				"dependsOn": ["Functions.function.message_cleanup"]
+			}
+		],
+		"Datastore": [
+			{
+				"type": "table",
+				"name": "Message",
+				"properties": {
+					"table_name": "Message"
+				},
+				"dependsOn": []
+			},
+			{
+				"type": "column",
+				"name": "Message-ID",
+				"properties": {
+					"audit_consent": false,
+					"decimal_digits": 2,
+					"column_name": "ID",
+					"data_type": "int",
+					"is_unique": false,
+					"is_mandatory": false,
+					"search_index_enabled": false,
+					"table_id": "Message",
+					"table_name": "Message",
+					"max_length": 10
+				},
+				"dependsOn": ["Datastore.table.Message"]
+			},
+			{
+				"type": "column",
+				"name": "Message-MESSAGE",
+				"properties": {
+					"audit_consent": false,
+					"decimal_digits": 2,
+					"column_name": "MESSAGE",
+					"data_type": "text",
+					"is_unique": false,
+					"is_mandatory": false,
+					"search_index_enabled": false,
+					"table_id": "Message",
+					"table_name": "Message",
+					"max_length": 10000
+				},
+				"dependsOn": ["Datastore.table.Message"]
+			},
+			{
+				"type": "tableScope",
+				"name": "Message-App Administrator",
+				"properties": {
+					"role_name": "App Administrator",
+					"table_scope": "GLOBAL",
+					"type": "App Administrator",
+					"table_name": "Message"
+				},
+				"dependsOn": ["Datastore.table.Message"]
+			},
+			{
+				"type": "tableScope",
+				"name": "Message-App User",
+				"properties": {
+					"role_name": "App User",
+					"table_scope": "GLOBAL",
+					"type": "App User",
+					"table_name": "Message"
+				},
+				"dependsOn": ["Datastore.table.Message"]
+			},
+			{
+				"type": "tablePermission",
+				"name": "Message-App Administrator",
+				"properties": {
+					"role_name": "App Administrator",
+					"type": "App Administrator",
+					"table_permissions": ["SELECT", "UPDATE", "INSERT", "DELETE"],
+					"table_name": "Message"
+				},
+				"dependsOn": ["Datastore.table.Message"]
+			},
+			{
+				"type": "tablePermission",
+				"name": "Message-App User",
+				"properties": {
+					"role_name": "App User",
+					"type": "App User",
+					"table_permissions": ["SELECT"],
+					"table_name": "Message"
+				},
+				"dependsOn": ["Datastore.table.Message"]
+			}
+		]
+	}
+}
