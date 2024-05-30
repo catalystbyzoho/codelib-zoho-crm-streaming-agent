@@ -135,6 +135,11 @@ To obtain the `APPSAIL_DOMAIN`, navigate to the Catalyst Console, select the rel
 
 **Note**
 
-If you need to read a message from a particular ID, include the message ID in the socket.io client query using the name last_read_message. To know more about socket-io client you can refer [here](https://socket.io/docs/v4/client-initialization/). The local machine's program should remain active to receive data from Zoho CRM consistently.
+If you need to read a message from a particular ID, include the message ID in the socket.io client query using the name `last_read_message`. To know more about socket-io client you can refer [here](https://socket.io/docs/v4/client-initialization/). The local machine's program should remain active to receive data from Zoho CRM consistently.
 
 Once the configuration has been completed, each time an event is generated in the Catalyst event listener, event data is transformed as a `text` message and stored in catalyst, and then the message will be transmitted to the local machine.
+
+**Points To Remember**
+
+- Using `zoho-crm-bridge` appsail for purposes other than those specified is not recommended.
+- It's advisable to limit the number of clients to a maximum of 10 per appsail.
