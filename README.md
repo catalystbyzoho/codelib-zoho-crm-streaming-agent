@@ -142,4 +142,4 @@ Once the configuration has been completed, each time an event is generated in th
 **Points To Remember**
 
 - Using `zoho-crm-bridge` appsail for purposes other than those specified is not recommended.
-- It's advisable to limit the number of clients to a maximum of 10 per appsail.
+- It's advisable to limit the number of socket.io clients to a maximum of 10 per appsail.
